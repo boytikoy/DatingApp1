@@ -13,7 +13,6 @@ import { Toast, ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-
   constructor(private router: Router, private toastr: ToastrService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -36,7 +35,7 @@ export class ErrorInterceptor implements HttpInterceptor {
               }
               break;
             case 401:
-              this.toastr.error('Unauthorized', error.status.toString())
+              this.toastr.error(error.error, error.status.toString());
               break;
             case 404:
               this.router.navigateByUrl('/not-found');

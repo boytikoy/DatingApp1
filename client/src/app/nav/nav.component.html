@@ -15,10 +15,10 @@
                 <li class="nav-item">
                     <a *appHasRole="['Admin' , 'Moderator']" class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
                 </li>
+                <li class="nav-item">
+                    <a *appHasRole="['Admin']" class="nav-link" routerLink="/errors" routerLinkActive="active">Errors</a>
+                </li>
             </ng-container>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/errors" routerLinkActive="active">Errors</a>
-            </li>
         </ul>
 
         <div class="dropdown" *ngIf="(accountService.currentUser$| async) as user" dropdown>
@@ -34,11 +34,13 @@
         <form *ngIf="!(accountService.currentUser$| async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()"
             autocomplete="off">
             <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text"
-                placeholder="Username">
+                placeholder="Username" required>
             <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password"
-                placeholder="Password">
-            <button class="btn btn-success" type="submit">Login</button>
+                placeholder="Password" required>
+
+            <button [disabled]="!loginForm.valid" class="btn btn-success" type="submit">Login</button>
         </form>
 
     </div>
 </nav>
+
